@@ -155,7 +155,7 @@ dotnet run --project TaskReminderService.worker/TaskReminderService.worker.cspro
 
 Once the API is running, it is available at:
 - **API base URL:** `http://localhost:5270`
-- **Swagger UI:** `http://localhost:5270/swagger`
+- **Swagger UI:** `http://localhost:7085/swagger`
 
 ---
 
@@ -178,7 +178,7 @@ The frontend will be available at **`http://localhost:5173`**.
 
 Interactive Swagger documentation is available in development mode at:
 
-**`http://localhost:5270/swagger`**
+**`http://localhost:7085/swagger`**
 
 To authenticate in Swagger, click **Authorize** and enter: `Bearer <your_token>` (obtained from the login endpoint).
 
@@ -251,6 +251,7 @@ Follow these steps to verify all components are working correctly together:
 
 **3. Verify overdue task processing (Worker Service)**
 - Watch the **Worker Service console** (Visual Studio Output window or terminal).
+- You can observe logs in the `..\backend\TaskManagerBackend\TaskReminderService.worker\bin\Debug\net9.0\logs` path as well
 - Within 60 seconds, you should see a log entry like:
   ```
   Hi your Task is due My Overdue Task
@@ -274,7 +275,7 @@ Follow these steps to verify all components are working correctly together:
 
 ### Swagger Testing
 
-For direct API testing without the frontend, use Swagger at `http://localhost:5270/swagger`:
+For direct API testing without the frontend, use Swagger at `http://localhost:7085/swagger`:
 1. Call `POST /api/auth/login` to get a token.
 2. Click **Authorize** and paste `Bearer <token>`.
 3. Test any protected endpoint directly from the UI.
