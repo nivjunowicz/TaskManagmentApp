@@ -34,6 +34,16 @@ public class AuthController : ControllerBase
             });
         }
 
+        var passwordValidation = ValidatePassword(request.Password);
+        if (!passwordValidation.IsValid)
+        {
+            return BadRequest(new AuthResponse
+            {
+                Success = false,
+                Message = passwordValidation.ErrorMessage
+            });
+        }
+
         var userExists = _context.Users.Any(u => u.Email == request.Email || u.FullName == request.FullName);
         if (userExists)
         {
@@ -118,5 +128,28 @@ public class AuthController : ControllerBase
             Success = true,
             Message = "Logout successful. Please discard the token on client side."
         });
+    }
+
+    private PasswordValidationResult ValidatePassword(string password)
+    {
+        if (password.Length < 6)
+            return new PasswordValidationResult { IsValid = false, ErrorMessage = "Password must be at least 6 characters long" };
+
+        if (!password.Any(char.IsUpper))
+            return new PasswordValidationResult { IsValid = false, ErrorMessage = "Password must contain at least one uppercase letter" };
+        
+        if (!password.Any(char.IsLower))
+            return new PasswordValidationResult { IsValid = false, ErrorMessage = "Password must contain at least one lowercase letter" };
+
+        if (!password.Any(ch => !char.IsLetterOrDigit(ch)))
+            return new PasswordValidationResult { IsValid = false, ErrorMessage = "Password must contain at least one special character" };
+
+        return new PasswordValidationResult { IsValid = true };
+    }
+
+    private class PasswordValidationResult
+    {
+        public bool IsValid { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 }
