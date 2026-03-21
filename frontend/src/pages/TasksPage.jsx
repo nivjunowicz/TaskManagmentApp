@@ -468,7 +468,7 @@ function TaskCard({ task, onEdit, onDelete, onArchive }) {
   const localDue   = moment.utc(task.dueDate);
   const minsUntil  = moment().add(2, 'hours').diff(moment(localDue) , 'minutes');
   const isImminent = !task.isArchived && (minsUntil >= -4);
-console.log(minsUntil)
+
     return (
     <div style={{ ...card.base, ...(task.isArchived ? card.archived : {}) }}>
       <div style={card.topRow}>
