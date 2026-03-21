@@ -1,0 +1,69 @@
+@baseUrl = https://localhost:7085
+@contentType = application/json
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxMDAzIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwidW5pcXVlX25hbWUiOiJKb2huIERvZSIsIm5iZiI6MTc3NDAwOTczNiwiZXhwIjoxNzc0MDEzMzM2LCJpYXQiOjE3NzQwMDk3MzYsImlzcyI6IlRhc2tNYW5hZ2VyIiwiYXVkIjoiVGFza01hbmFnZXJVc2VycyJ9.JK5D5E-_JYmMp5lxOnS1E3Xns1YwahtVhSNNVkM1Jh8
+
+### Auth - Register
+POST {{baseUrl}}/api/auth/register
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+  "fullName": "John Doe",
+  "telephone": "1234567890",
+  "password": "Password123!"
+}
+
+### Auth - Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+  "password": "Password123!"
+}
+
+### Auth - Logout
+POST {{baseUrl}}/api/auth/logout
+Authorization: Bearer {{token}}
+
+### Tags - Get All Tags
+GET {{baseUrl}}/api/tags
+Authorization: Bearer {{token}}
+
+### Tasks - Get All User Tasks
+GET {{baseUrl}}/api/tasks
+Authorization: Bearer {{token}}
+
+### Tasks - Get Task by ID
+GET {{baseUrl}}/api/tasks/1016
+Authorization: Bearer {{token}}
+
+### Tasks - Create Task
+POST {{baseUrl}}/api/tasks
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "title": "Complete project documentation",
+  "description": "Write comprehensive docs for the API",
+  "dueDate": "2026-04-01T00:00:00Z",
+  "priority": 3,
+  "tagNames": ["Documentation", "Work"]
+}
+
+### Tasks - Update Task
+PUT {{baseUrl}}/api/tasks/1016
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "title": "Updated task title",
+  "description": "Updated description",
+  "dueDate": "2026-04-15T00:00:00Z",
+  "priority": 2,
+  "tagNames": ["Work", "Urgent"]
+}
+
+### Tasks - Delete Task
+DELETE {{baseUrl}}/api/tasks/1016
+Authorization: Bearer {{token}}

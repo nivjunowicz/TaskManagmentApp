@@ -1,0 +1,46 @@
+# ===========================
+# Secrets / Assignment files
+# ===========================
+instructions.md
+
+# ===========================
+# .NET build artifacts
+# ===========================
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages/
+!**/packages/repositories.config
+
+# Publish output
+**/publish/
+**/out/
+
+# ===========================
+# Frontend (Node / Vite)
+# ===========================
+**/node_modules/
+**/dist/
+**/dist-ssr/
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ===========================
+# IDE / OS
+# ===========================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
