@@ -1,7 +1,5 @@
 using TaskManager.api.Utilities;
 
-using TaskManager.api.Utilities;
-
 namespace TaskManager.api.Entities;
 
 public class TaskItem
