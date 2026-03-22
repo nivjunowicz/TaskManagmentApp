@@ -111,7 +111,29 @@ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
 ---
 
-### 4.3 Step 2 — Apply Database Migrations
+### 4.3 Step 2 — Restore NuGet Packages
+
+NuGet packages are excluded from version control and must be restored before proceeding.
+
+**Option A — Visual Studio:**
+
+Visual Studio restores packages automatically on build. No manual action needed.
+
+**Option B — .NET CLI** (from `backend/TaskManagerBackend/`):
+
+```bash
+dotnet restore
+```
+
+The following packages will be restored:
+
+**TaskManager.api:** `Microsoft.EntityFrameworkCore.SqlServer`, `Microsoft.EntityFrameworkCore.Tools`, `Microsoft.EntityFrameworkCore.Design`, `Swashbuckle.AspNetCore`, `Microsoft.AspNetCore.Authentication.JwtBearer`, `BCrypt.Net-Next`
+
+**TaskReminderService.worker:** `Microsoft.EntityFrameworkCore.SqlServer`, `Microsoft.Extensions.Hosting`, `RabbitMQ.Client`, `Serilog`, `Serilog.AspNetCore`, `Serilog.Sinks.Console`, `Serilog.Sinks.File`
+
+---
+
+### 4.4 Step 3 — Apply Database Migrations
 
 The API uses **Entity Framework Core** with Code-First migrations. The database will be created automatically when migrations are applied.
 
@@ -133,15 +155,19 @@ This creates the `TaskManagerDb` database on `(localdb)\mssqllocaldb`.
 
 ---
 
-### 4.4 Step 3 — Start the Backend API & Worker Service
+### 4.5 Step 4 — Start the Backend API & Worker Service
 
 Both backend projects are configured in a **multi-startup profile** in Visual Studio.
 
 **Option A — Visual Studio (recommended):**
 
 1. Open `TaskManagerBackend.sln` in Visual Studio 2022.
-2. In the startup dropdown at the top toolbar, select **"New Profile"**.
-3. Press **F5** to start both `TaskManager.api` and `TaskReminderService.worker` simultaneously.
+2. Configure multiple startup projects:
+   - Right-click the **solution** in Solution Explorer and select **"Configure Startup Projects..."**.
+   - Select **"Multiple startup projects"**.
+   - Set both `TaskManager.api` and `TaskReminderService.worker` to **"Start"**.
+   - Click **OK**.
+3. Press **F5** to start both projects simultaneously.
 
 **Option B — Command Line** (run each in a separate terminal from the solution folder `backend/TaskManagerBackend/`):
 
@@ -159,7 +185,7 @@ Once the API is running, it is available at:
 
 ---
 
-### 4.5 Step 4 — Start the React Frontend
+### 4.6 Step 5 — Start the React Frontend
 
 Open a terminal in the `frontend/` folder:
 
